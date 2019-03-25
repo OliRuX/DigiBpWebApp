@@ -1,8 +1,4 @@
 
-
-    <?php header( 'Location: /public/index.html' ) ;  ?>
-
-  <!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,4 +9,3 @@
     <h1> DigiBp Morcote - elegant design</h1>
 </body>
 </html>
->

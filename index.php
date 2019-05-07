@@ -41,9 +41,6 @@
         });
     }
 
-
-
-
 </script>
 
 <body onload="initiateGUI()">

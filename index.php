@@ -6,6 +6,6 @@
     <title>New Page</title>
 </head>
 <body>
-    <h1> DigiBp Morcote - elegant design</h1>
+    <h1> DigiBp Morcote - elegant design 2</h1>
 </body>
 </html>

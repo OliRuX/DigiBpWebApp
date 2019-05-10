@@ -1,0 +1,22 @@
+{
+  "name": "digibpwebapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OliRuX/DigiBpWebApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OliRuX/DigiBpWebApp/issues"
+  },
+  "homepage": "https://github.com/OliRuX/DigiBpWebApp#readme",
+  "dependencies": {
+    "pg": "latest"
+  }
+}

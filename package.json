@@ -1,8 +1,8 @@
 {
-  "name": "digibpwebapp",
+  "name": "webapp",
   "version": "1.0.0",
   "description": "",
-  "main": "node.js",
+  "main": "dbconnection.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/OliRuX/DigiBpWebApp#readme",
   "dependencies": {
-    "pg": "latest"
+    "pg": "^7.11.0"
   }
 }

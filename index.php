@@ -1,1 +1,1 @@
-<?php include_once("dbTesting.html"); ?>
+<?php include_once("home.html"); ?>

@@ -3,11 +3,14 @@
 <html>
 <body>
 
-<p id="demo" onclick="showDBEntry()">Click me </p>
+<p id="p" onclick="showDBEntry()">Click me </p>
 
 <script>
+    let trading;
     function showDBEntry() {
-       alert(get_IDandIncrease()) ;
+      var newID= get_IDAndIncrease(3);
+      var paragraph = document.getElementById("p");
+      paragraph.textContent += newID +" <--new ID from function  -  trading, global variable -->"+ trading;
     }
 </script>
 

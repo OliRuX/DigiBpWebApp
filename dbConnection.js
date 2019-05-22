@@ -1,3 +1,5 @@
+
+function prepareConnection(){
     var Pool = require('pg').Pool;
     var config = {
         host: 'ec2-54-247-70-127.eu-west-1.compute.amazonaws.com',
@@ -8,22 +10,25 @@
     };
 
     var pool = new Pool(config);
+    return pool;
+}
 
-    async function get_items(){
-        var response = await pool.query("select * from customer ORDER BY c_id desc");
+async function get_items(){
+        var response = await prepareConnection().query("select * from customer ORDER BY c_id desc");
         console.log(response.rows);
         return response.rows;
-    }
-
-    async function get_IDandIncrease(){
-        var highestCustomerID = await pool.query({
+}
+ async function get_IDAndIncrease(){
+    var highestCustomerID = await prepareConnection().query({
             rowMode: 'array',
             text: "select c_id from customer ORDER BY c_id desc"
-        });
-        var newID =parseInt(highestCustomerID.rows[0])+ 1;
-        console.log(newID);
-        return newID;
-    }
+    });
+
+    var newID =parseInt(highestCustomerID.rows[0])+ 1;
+    console.log(newID);
+    trading = newID;
+    return newID;
+}
 
 /*    async function addCustomertoDB(fname, lname, email, street, housenumber, postcode, city){
         pool.query
@@ -35,4 +40,5 @@
     console.log(response.rows);
     }*/
 
-//get_items() ;
+   get_IDAndIncrease(2);
+   get_items();

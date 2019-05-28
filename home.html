@@ -5,82 +5,9 @@
     <meta charset="UTF-8">
     <title>New Page</title>
     <link href="src\myStyleSheet.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="src/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="src/javascripts/purchaseFunctionality.js"></script>
 </head>
-
-<script>
-
-    let selectedSizeCasualShirt = "selectSizeCasualShirt";
-    let selectedColorCasualShirt = "selectColorCasualShirt";
-
-    function initiateGUI() {
-        selectedSizeCasualShirt = $("#selectSizeCasualShirt").val();
-        selectedColorCasualShirt = $("#selectColorCasualShirt").val();
-
-        $("#selectSizeCasualShirt").change(function () {
-            selectedSize = $("#selectSizeCasualShirt").val();
-            console.log(selectedSize);
-        });
-
-        $("#selectColorCasualShirt").change(function () {
-            selectedColor = $("#selectColorCasualShirt").val();
-            console.log(selectedColor);
-
-            if (selectedColor === "Black") {
-
-                $("#casualShirt").attr("src", "src\\img\\men_shirt_casual_black.jpg");
-
-            } else if (selectedColor === "White") {
-
-                $("#casualShirt").attr("src", "src\\img\\men_shirt_casual_white.jpg");
-
-            } else if (selectedColor === "Blue") {
-
-                $("#casualShirt").attr("src", "src\\img\\men_shirt_casual_royalBlue.jpg");
-            }
-        });
-    }
-
-    function addItemToCart1() {
-        let size = document.getElementById('selectSizeBusinessShirt');
-        let value = size.options[size.selectedIndex].value;
-        console.log(value);
-        createJason(value, null);
-    }
-
-    function addItemToCart2() {
-        let size = document.getElementById('selectSizeCasualShirt');
-        let value = size.options[size.selectedIndex].value;
-
-        let color = document.getElementById('selectColorCasualShirt');
-        let value2 = color.options[color.selectedIndex].value;
-
-        console.log(value);
-        console.log(value2);
-
-        createJason(value, value2);
-    }
-
-    function addItemToCart3() {
-        let size = document.getElementById('selectSizeBusinessShirtWoman');
-        let value = size.options[size.selectedIndex].value;
-        console.log(value);
-        createJason(value, null);
-    }
-
-    function addItemToCart4() {
-        let size = document.getElementById('selectSizeCasualShirtWoman');
-        let value = size.options[size.selectedIndex].value;
-        console.log(value);
-        createJason(value, null);
-    }
-
-    function createJason(size, color) {
-
-    }
-
-</script>
 
 <body onload="initiateGUI()">
 <h1> DigiBp Morcote - elegant design 2</h1>
@@ -147,16 +74,48 @@
                     <button onclick="addItemToCart4()">Add to cart</button>
                 </div>
             </td>
-            <button onclick="window.location.href = 'https://digibp-webapp.herokuapp.com/dbTesting.html';">Go to DB Testing, hi from Oli</button>
+            <button onclick="window.location.href = 'https://digibp-webapp.herokuapp.com/dbTesting.html';">Go to DB
+                Testing, hi from Oli
+            </button>
         </tr>
 
     </table>
 
 </div>
+
 <div id="shoppingCartContainer">
     <table id="tableShoppingCart">
     </table>
 </div>
+
+
+<div>
+    <input type="text" id="firstName">
+    <label>First name</label><br><br>
+
+    <input type="text" id="lastName">
+    <label>Last name</label><br><br>
+
+    <input type="text" id="mail">
+    <label>E-Mail</label><br><br>
+
+    <input type="text" value="Riggenbachstrasse"  id="street">
+    <label>Street</label><br><br>
+
+    <input type="text" value="16" id="streetNumber">
+    <label>Street Nr.</label><br><br>
+
+    <input type="text" value="4600"  id="postCode">
+    <label>Post Code</label><br><br>
+
+    <input type="text" value="Olten" id="city">
+    <label>City</label><br><br>
+
+    <button onclick="sendOrder()">Purchase</button>
+
+</div>
+
+
 
 </body>
 

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/OliRuX/DigiBpWebApp#readme",
   "dependencies": {
+    "node": "^12.3.0",
     "pg": "^7.11.0"
   }
 }

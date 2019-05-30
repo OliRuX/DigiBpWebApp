@@ -71,56 +71,6 @@ function addItemToCart4() {
     createOrder("item4", value, "blackWhitePlaid");
 }
 
-function createOrder2(itemType, size, color) {
-
-    console.log(itemType, " ", size, " ", color);
-
-    if (myOrder.length !== 0) {
-
-        let isAlreadyInTheCart = false;
-
-        for (let i = 0; i < myOrder.length; i++) {
-
-            if (myOrder[i].itemType === itemType) {
-
-                isAlreadyInTheCart = true;
-
-                let hasSameSize = false;
-                let hasSameColor = false;
-
-                let myArrayEntry;
-
-                for (let j = 0; j < myOrder[i].kind.length; j++) {
-
-                    myArrayEntry = myOrder[i].kind[j];
-
-                    if (myOrder[i].kind[j].size === size) {
-
-                        hasSameSize = true;
-                        break;
-                    }
-                    // if (myOrder[i].kind[j].color === color) {
-                    //     hasSameColor = true;
-                    //     break;
-                    // }
-                }
-
-                if (hasSameSize) {
-                    myArrayEntry.numberOfItems++;
-                } else {
-                    myOrder[i].kind.push({color: color, size: size, numberOfItems: 1});
-                }
-            }
-        }
-        if (!isAlreadyInTheCart) {
-            myOrder.push({itemType: itemType, kind: [{color: color, size: size, numberOfItems: 1}]});
-        }
-    } else {
-        myOrder.push({itemType: itemType, kind: [{color: color, size: size, numberOfItems: 1}]});
-    }
-    console.log("myOrder ", myOrder);
-}
-
 function sendOrder() {
 
     console.log("Cart ", myOrder);
@@ -142,6 +92,10 @@ function sendOrder() {
 
     let x = {
         variables: {
+            shoppingCart: {
+                value: null,
+                type: 'String'
+            },
             order: {
                 value: myOrderString,
                 type: 'String'
@@ -181,7 +135,11 @@ function sendOrder() {
     let t = JSON.stringify(x);
     console.log("le json ", t);
 
-    sendRequest2(t);
+    let myResponse = sendRequest2(t);
+    console.log("Response ", myResponse);
+
+    alert("Thank you for your order!");
+    window.location.reload();
 }
 
 async function sendRequest2(t) {
@@ -407,4 +365,54 @@ function createShoppingCartTableEntry(itemID, itemType, color, size, amount) {
         cell4.appendChild(entry4);
         cell5.appendChild(removeButton);
     }
+}
+
+function createOrder2(itemType, size, color) {
+
+    console.log(itemType, " ", size, " ", color);
+
+    if (myOrder.length !== 0) {
+
+        let isAlreadyInTheCart = false;
+
+        for (let i = 0; i < myOrder.length; i++) {
+
+            if (myOrder[i].itemType === itemType) {
+
+                isAlreadyInTheCart = true;
+
+                let hasSameSize = false;
+                let hasSameColor = false;
+
+                let myArrayEntry;
+
+                for (let j = 0; j < myOrder[i].kind.length; j++) {
+
+                    myArrayEntry = myOrder[i].kind[j];
+
+                    if (myOrder[i].kind[j].size === size) {
+
+                        hasSameSize = true;
+                        break;
+                    }
+                    // if (myOrder[i].kind[j].color === color) {
+                    //     hasSameColor = true;
+                    //     break;
+                    // }
+                }
+
+                if (hasSameSize) {
+                    myArrayEntry.numberOfItems++;
+                } else {
+                    myOrder[i].kind.push({color: color, size: size, numberOfItems: 1});
+                }
+            }
+        }
+        if (!isAlreadyInTheCart) {
+            myOrder.push({itemType: itemType, kind: [{color: color, size: size, numberOfItems: 1}]});
+        }
+    } else {
+        myOrder.push({itemType: itemType, kind: [{color: color, size: size, numberOfItems: 1}]});
+    }
+    console.log("myOrder ", myOrder);
 }

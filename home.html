@@ -10,9 +10,10 @@
 </head>
 
 <body onload="initiateGUI()">
-<h1> DigiBp Morcote - elegant design 2</h1>
+<h1> DigiBp Morcote - elegant design</h1>
 
-<div class="clothesCatalogue" align="center" style="margin-top: 100px">
+
+<div class="clothesCatalogue" align="center" style="margin-top: 30px">
 
     <table>
         <tr>
@@ -74,48 +75,52 @@
                     <button onclick="addItemToCart4()">Add to cart</button>
                 </div>
             </td>
-            <button onclick="window.location.href = 'https://digibp-webapp.herokuapp.com/dbTesting.html';">Go to DB
-                Testing, hi from Oli
-            </button>
         </tr>
-
     </table>
 
 </div>
 
-<div id="shoppingCartContainer">
-    <table id="tableShoppingCart">
-    </table>
+<div style="padding: 20px 30px 0px">
+
+    <div id="customerDataContainer" style="float: left">
+        <input type="text" id="firstName">
+        <label>First name</label><br><br>
+
+        <input type="text" id="lastName">
+        <label>Last name</label><br><br>
+
+        <input type="text" id="mail">
+        <label>E-Mail</label><br><br>
+
+        <input type="text" value="Riggenbachstrasse" id="street">
+        <label>Street</label><br><br>
+
+        <input type="text" value="16" id="streetNumber">
+        <label>Street Nr.</label><br><br>
+
+        <input type="text" value="4600" id="postCode">
+        <label>Post Code</label><br><br>
+
+        <input type="text" value="Olten" id="city">
+        <label>City</label><br><br>
+
+        <button onclick="sendOrder()">Purchase</button>
+
+    </div>
+
+    <div id="shoppingCartContainer" align="center">
+        <table id="tableShoppingCart" cellpadding="5px">
+            <tr class="shoppingCart">
+                <th>Item</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Amount</th>
+                <th></th>
+            </tr>
+        </table>
+    </div>
+
 </div>
-
-
-<div>
-    <input type="text" id="firstName">
-    <label>First name</label><br><br>
-
-    <input type="text" id="lastName">
-    <label>Last name</label><br><br>
-
-    <input type="text" id="mail">
-    <label>E-Mail</label><br><br>
-
-    <input type="text" value="Riggenbachstrasse"  id="street">
-    <label>Street</label><br><br>
-
-    <input type="text" value="16" id="streetNumber">
-    <label>Street Nr.</label><br><br>
-
-    <input type="text" value="4600"  id="postCode">
-    <label>Post Code</label><br><br>
-
-    <input type="text" value="Olten" id="city">
-    <label>City</label><br><br>
-
-    <button onclick="sendOrder()">Purchase</button>
-
-</div>
-
-
 
 </body>
 

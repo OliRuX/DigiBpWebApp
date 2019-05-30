@@ -27,11 +27,11 @@ function initiateGUI() {
     //let result = getLatestDefinitionID();
 }
 
-async function getLatestDefinitionID(){
+async function getLatestDefinitionID() {
 
     let URL = "https://morcote.herokuapp.com/rest/process-definition/digibp-template:26:890828a7-7ca2-11e9-b5c0-8e83571e468a/start";
 
-    const response = await fetch(URL, {method:'GET', mode: 'cors', headers:{'Content-Type':'application/json'}});
+    const response = await fetch(URL, {method: 'GET', mode: 'cors', headers: {'Content-Type': 'application/json'}});
 
     let res = response.json();
 
@@ -188,7 +188,12 @@ async function sendRequest2(t) {
     //let URL = "https://morcote.herokuapp.com/rest/process-definition/digibp-template:26:890828a7-7ca2-11e9-b5c0-8e83571e468a/start";
     let URL = "https://morcote.herokuapp.com/rest/process-definition/WebShopProcess:1:685e9042-7d3f-11e9-848f-ceacf307023c/start";
 
-    const response = await fetch(URL, {method:'POST', mode: 'cors', headers:{'Content-Type':'application/json'},body:t});
+    const response = await fetch(URL, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {'Content-Type': 'application/json'},
+        body: t
+    });
 
     let res = response.json();
 
@@ -308,8 +313,10 @@ function createOrder(itemType, size, color) {
 
     console.log("after switch");
 
+
     if (myOrder.length === 0) {
         myOrder.push({id: itemID, amount: 1});
+        createShoppingCartTableEntry(itemID, itemType, color, size, 1);
         return;
     }
 
@@ -323,10 +330,81 @@ function createOrder(itemType, size, color) {
             myOrder[i].amount++;
             console.log(myOrder[i].amount);
             exists = true;
+            createShoppingCartTableEntry(itemID, itemType, color, size, 1);
         }
     }
 
     if (!exists) {
         myOrder.push({id: itemID, amount: 1});
+        createShoppingCartTableEntry(itemID, itemType, color, size, 1);
+    }
+}
+
+function createShoppingCartTableEntry(itemID, itemType, color, size, amount) {
+    console.log("createShoppingCartTableEntry");
+
+    let table = document.getElementById('tableShoppingCart');
+    table.style.borderSpacing = "30px";
+
+    let rowExists = document.getElementById(itemID.toString());
+
+    console.log("rowExists", rowExists);
+
+    if (rowExists !== null) {
+        let currentValue = parseInt(rowExists.cells[3].innerText);
+        rowExists.cells[3].innerText = (currentValue + 1).toString();
+    } else {
+
+
+        let newRow = table.insertRow(-1);
+        newRow.id = itemID;
+
+        let removeButton = document.createElement("button");
+        removeButton.innerText = "Delete";
+        removeButton.onclick = function () {
+            let index = this.closest('tr').rowIndex;
+            console.log("rowIndex ", index);
+            let myRow = document.getElementById(itemID.toString());
+            console.log("myRow", myRow);
+            let currentValue = myRow.cells[3].innerText;
+
+            if (currentValue <= 1) {
+                table.deleteRow(index);
+
+            } else {
+                myRow.cells[3].innerText = (currentValue - 1).toString();
+            }
+
+            for (let i = 0; i < myOrder.length; i++) {
+                console.log(myOrder[i].id + " - " + itemID);
+                if (myOrder[i].id === itemID) {
+                    if (myOrder[i].amount >= 1) {
+                        myOrder[i].amount--;
+                    }
+                }
+            }
+
+            console.log("myOrder ", myOrder);
+        };
+
+        let cell1 = newRow.insertCell(0);
+        let cell2 = newRow.insertCell(1);
+        let cell3 = newRow.insertCell(2);
+        let cell4 = newRow.insertCell(3);
+        let cell5 = newRow.insertCell(4);
+        cell3.style.textAlign = 'center';
+        cell4.style.textAlign = 'center';
+        cell5.style.textAlign = 'center';
+
+        let entry1 = document.createTextNode(itemType.toString());
+        let entry2 = document.createTextNode(color.toString());
+        let entry3 = document.createTextNode(size.toString());
+        let entry4 = document.createTextNode(amount);
+
+        cell1.appendChild(entry1);
+        cell2.appendChild(entry2);
+        cell3.appendChild(entry3);
+        cell4.appendChild(entry4);
+        cell5.appendChild(removeButton);
     }
 }

@@ -29,7 +29,7 @@ function initiateGUI() {
 
 async function getLatestDefinitionID() {
 
-    let URL = "https://morcote.herokuapp.com/rest/process-definition/digibp-template:26:890828a7-7ca2-11e9-b5c0-8e83571e468a/start";
+    let URL = "https://morcote.herokuapp.com/rest/process-definition/CC-WebshopProcess:2:a23ed261-8302-11e9-9288-0643ec607023/start";
 
     const response = await fetch(URL, {method: 'GET', mode: 'cors', headers: {'Content-Type': 'application/json'}});
 
@@ -93,8 +93,8 @@ function sendOrder() {
     let x = {
         variables: {
             ShoppingCart: {
-                value: null,
-                type: 'String'
+                value: 0,
+                type: 'integer'
             },
             Order: {
                 value: myOrderString,

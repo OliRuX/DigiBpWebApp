@@ -139,7 +139,7 @@ function sendOrder() {
     console.log("Response ", myResponse);
 
     alert("Thank you for your order!");
-    //window.location.reload();
+    window.location.reload();
 }
 
 async function sendRequest2(t) {

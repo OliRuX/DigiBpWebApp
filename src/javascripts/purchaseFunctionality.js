@@ -139,13 +139,14 @@ function sendOrder() {
     console.log("Response ", myResponse);
 
     alert("Thank you for your order!");
-    window.location.reload();
+    //window.location.reload();
 }
 
 async function sendRequest2(t) {
     //let URL = "https://morcote.herokuapp.com/rest/process-definition/digibp-template:26:890828a7-7ca2-11e9-b5c0-8e83571e468a/start";
     //let URL = "https://morcote.herokuapp.com/rest/process-definition/WebShopProcess:1:685e9042-7d3f-11e9-848f-ceacf307023c/start";
-    let URL = "https://morcote.herokuapp.com/rest/process-definition/WebShopProcess:4:11b2d7b6-82dc-11e9-bf8f-0e023bcbfa65/start";
+    //let URL = "https://morcote.herokuapp.com/rest/process-definition/WebShopProcess:4:11b2d7b6-82dc-11e9-bf8f-0e023bcbfa65/start";
+    let URL = "https://morcote.herokuapp.com/rest/process-definition/CC-WebshopProcess:4:94fa1fe5-8316-11e9-b2b4-5e833a20c974/start";
 
     const response = await fetch(URL, {
         method: 'POST',

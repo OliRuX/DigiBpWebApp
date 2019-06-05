@@ -2,6 +2,7 @@ let selectedColorCasualShirt = "selectColorCasualShirt";
 let myOrder = [];
 let myOrderString = "";
 
+// The initiateGUI function is called when the website is loaded and responsible to load and show the pictures of the items (shirts)
 function initiateGUI() {
 
     selectedColorCasualShirt = $("#selectColorCasualShirt").val();
@@ -23,23 +24,9 @@ function initiateGUI() {
             $("#casualShirt").attr("src", "src\\img\\men_shirt_casual_royalBlue.jpg");
         }
     });
-
-    //let result = getLatestDefinitionID();
 }
 
-async function getLatestDefinitionID() {
-
-    let URL = "https://morcote.herokuapp.com/rest/process-definition/CC-WebshopProcess:2:a23ed261-8302-11e9-9288-0643ec607023/start";
-
-    const response = await fetch(URL, {method: 'GET', mode: 'cors', headers: {'Content-Type': 'application/json'}});
-
-    let res = response.json();
-
-    console.log("Response ", res);
-
-    return res;
-}
-
+//The following four addItemToCart functions are call when a shirt ink. size and color is selected and should be added to the shopping cart.
 function addItemToCart1() {
     let size = document.getElementById('selectSizeBusinessShirt');
     let value = size.options[size.selectedIndex].value;
@@ -71,10 +58,9 @@ function addItemToCart4() {
     createOrder("item4", value, "blackWhitePlaid");
 }
 
+// The sendOrder function is called when the items in the shopping cart should be bought.
+// The customer information and the chosen items (myOrderString) is prepared in the form of a json object.
 function sendOrder() {
-
-    console.log("Cart ", myOrder);
-    console.log(JSON.stringify(myOrder));
 
     if (myOrder.length !== 0) {
         myOrderString = createOrderString();
@@ -135,17 +121,16 @@ function sendOrder() {
     let t = JSON.stringify(x);
     console.log("le json ", t);
 
-    let myResponse = sendRequest2(t);
+    let myResponse = sendRequest(t);
     console.log("Response ", myResponse);
 
     alert("Thank you for your order!");
     window.location.reload();
 }
 
-async function sendRequest2(t) {
-    //let URL = "https://morcote.herokuapp.com/rest/process-definition/digibp-template:26:890828a7-7ca2-11e9-b5c0-8e83571e468a/start";
-    //let URL = "https://morcote.herokuapp.com/rest/process-definition/WebShopProcess:1:685e9042-7d3f-11e9-848f-ceacf307023c/start";
-    //let URL = "https://morcote.herokuapp.com/rest/process-definition/WebShopProcess:4:11b2d7b6-82dc-11e9-bf8f-0e023bcbfa65/start";
+// The sendRequest function is called at the very last, to send the prepared json object to camunda in order to start the webshop process.
+async function sendRequest(t) {
+
     let URL = "https://morcote.herokuapp.com/rest/process-definition/CC-WebshopProcess:4:94fa1fe5-8316-11e9-b2b4-5e833a20c974/start";
 
     const response = await fetch(URL, {
@@ -162,6 +147,7 @@ async function sendRequest2(t) {
     return res;
 }
 
+// The createOrderSting function creates a string out of the myOrder
 function createOrderString() {
 
     let myString = "";
@@ -173,6 +159,8 @@ function createOrderString() {
     return myString;
 }
 
+// The createOrder function creates an the Array myOrder. If a new item is added, there will be a new order entry.
+// If the same item already exists, its amount will be increased by one.
 function createOrder(itemType, size, color) {
 
     console.log(itemType, " ", size, " ", color);
@@ -300,6 +288,8 @@ function createOrder(itemType, size, color) {
     }
 }
 
+// The createShoppingcartTableEntry creates the visualization of the shopping cart and reflects the it myOrder Array.
+// The user can add and delete items from the shopping cart.
 function createShoppingCartTableEntry(itemID, itemType, color, size, amount) {
     console.log("createShoppingCartTableEntry");
 
@@ -367,54 +357,4 @@ function createShoppingCartTableEntry(itemID, itemType, color, size, amount) {
         cell4.appendChild(entry4);
         cell5.appendChild(removeButton);
     }
-}
-
-function createOrder2(itemType, size, color) {
-
-    console.log(itemType, " ", size, " ", color);
-
-    if (myOrder.length !== 0) {
-
-        let isAlreadyInTheCart = false;
-
-        for (let i = 0; i < myOrder.length; i++) {
-
-            if (myOrder[i].itemType === itemType) {
-
-                isAlreadyInTheCart = true;
-
-                let hasSameSize = false;
-                let hasSameColor = false;
-
-                let myArrayEntry;
-
-                for (let j = 0; j < myOrder[i].kind.length; j++) {
-
-                    myArrayEntry = myOrder[i].kind[j];
-
-                    if (myOrder[i].kind[j].size === size) {
-
-                        hasSameSize = true;
-                        break;
-                    }
-                    // if (myOrder[i].kind[j].color === color) {
-                    //     hasSameColor = true;
-                    //     break;
-                    // }
-                }
-
-                if (hasSameSize) {
-                    myArrayEntry.numberOfItems++;
-                } else {
-                    myOrder[i].kind.push({color: color, size: size, numberOfItems: 1});
-                }
-            }
-        }
-        if (!isAlreadyInTheCart) {
-            myOrder.push({itemType: itemType, kind: [{color: color, size: size, numberOfItems: 1}]});
-        }
-    } else {
-        myOrder.push({itemType: itemType, kind: [{color: color, size: size, numberOfItems: 1}]});
-    }
-    console.log("myOrder ", myOrder);
 }
